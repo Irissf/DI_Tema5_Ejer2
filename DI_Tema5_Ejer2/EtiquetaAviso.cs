@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -37,7 +38,10 @@ namespace DI_Tema5_Ejer2
        */
 
         //Marca==================================================
+
         private eMarca marca = eMarca.Nada;
+        [Category("Apariencia")]
+        [Description("Coloca una x o un circulo, o nada")]
         public eMarca Marca
         {
             set
@@ -49,7 +53,60 @@ namespace DI_Tema5_Ejer2
             get { return marca; }
         }
 
+        //*********FONDO DEGRADADO*********************
+
+        //Degradado boleana
+        private bool degradado = false;
+        [Category("Apariencia")]
+        [Description("Le pone de fondo un degradado")]
+        public bool Degradado
+        {
+            set
+            {
+                degradado = value;
+                this.Refresh(); //REFRESCAR LOS GRÁFICOS
+            }
+            get
+            {
+                return degradado;
+            }
+        }
+
+        //Colores
+        private Color colorInicio;
+        [Category("Apariencia")]
+        [Description("Color de inicio para el fondo de degradado")]
+        public Color ColorInicio
+        {
+            set
+            {
+                colorInicio = value;
+                this.Refresh();
+            }
+            get
+            {
+                return colorInicio;
+            }
+        }
+
+        private Color colorFinal;
+        [Category("Apariencia")]
+        [Description("Color de inicio para el fondo de degradado")]
+        public Color ColorFinal
+        {
+            set
+            {
+                colorFinal = value;
+                this.Refresh();
+            }
+            get
+            {
+                return colorFinal;
+            }
+        }
+
         /*
+         * 
         ____ _  _ ____ _  _ ___ ____ ____    ____ _  _ 
         |___ |  | |___ |\ |  |  |  | [__     |  | |\ | 
         |___  \/  |___ | \|  |  |__| ___]    |__| | \|
@@ -65,6 +122,17 @@ namespace DI_Tema5_Ejer2
                              // a la hora de dibujar
             g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
             //Dependiendo del valor de la propiedad marca dibujamos una
+
+            //Degradado
+            if (degradado)
+            {
+                LinearGradientBrush gradientColor = new LinearGradientBrush(
+                    new PointF(0, 0),
+                    new PointF(this.Width, this.Height),
+                    colorInicio,
+                    colorFinal);
+            }
+
             //Cruz o un Círculo
             switch (Marca)
             {
@@ -93,12 +161,18 @@ namespace DI_Tema5_Ejer2
                     lapiz.Dispose();
                     break;
             }
+
             //Finalmente pintamos el Texto; desplazado si fuera necesario
             SolidBrush b = new SolidBrush(this.ForeColor);
             g.DrawString(this.Text, this.Font, b, offsetX + grosor, offsetY);
             Size tam = g.MeasureString(this.Text, this.Font).ToSize();
-            this.Size = new Size(tam.Width + offsetX + grosor, tam.Height + offsetY
-            * 2);
+            this.Size = new Size(tam.Width + offsetX + grosor, tam.Height + offsetY* 2);
+
+            
+
+           
+            
+            
             b.Dispose();
         }
 

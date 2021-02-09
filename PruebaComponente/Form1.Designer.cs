@@ -34,7 +34,10 @@ namespace PruebaComponente
             // 
             // etiquetaAviso1
             // 
-            this.etiquetaAviso1.Location = new System.Drawing.Point(113, 142);
+            this.etiquetaAviso1.ColorFinal = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+            this.etiquetaAviso1.ColorInicio = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.etiquetaAviso1.Degradado = true;
+            this.etiquetaAviso1.Location = new System.Drawing.Point(102, 122);
             this.etiquetaAviso1.Marca = DI_Tema5_Ejer2.eMarca.Nada;
             this.etiquetaAviso1.Name = "etiquetaAviso1";
             this.etiquetaAviso1.Size = new System.Drawing.Size(78, 13);
