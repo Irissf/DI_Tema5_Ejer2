@@ -15,11 +15,19 @@ namespace DI_Tema5_Ejer2
     {
         Nada,
         Cruz,
-        Circulo
+        Circulo,
+        Imagen
     }
+
 
     public partial class EtiquetaAviso : Control
     {
+
+        private int y;
+        private int x;
+        private int width;
+        private int height;
+
         //cibermedium by Kent Nassen
         /*
         ____ ____ _  _ ____ ___ ____ _  _ ____ ___ ____ ____ 
@@ -37,7 +45,7 @@ namespace DI_Tema5_Ejer2
         |    |  \ |__| |    | |___ |__/ |  | |__/ |___ ___]
        */
 
-        //Marca==================================================
+        //*****************MARCA*********************
 
         private eMarca marca = eMarca.Nada;
         [Category("Apariencia")]
@@ -53,7 +61,7 @@ namespace DI_Tema5_Ejer2
             get { return marca; }
         }
 
-        //*********FONDO DEGRADADO*********************
+        //*************FONDO DEGRADADO******************
 
         //Degradado boleana
         private bool degradado = false;
@@ -105,6 +113,23 @@ namespace DI_Tema5_Ejer2
             }
         }
 
+        //*****************IMAGEN*********************
+        private Image imagenMarca;
+        [Category("Apariencia")]
+        [Description("Imagen para añadir al componente, cuando Marca está en imagen")]
+        public Image ImagenMarca
+        {
+            set
+            {
+                imagenMarca = value;
+                this.Refresh();
+            }
+            get
+            {
+                return imagenMarca;
+            }
+        }
+
         /*
          * 
         ____ _  _ ____ _  _ ___ ____ ____    ____ _  _ 
@@ -121,7 +146,7 @@ namespace DI_Tema5_Ejer2
                              //Esta propiedad provoca mejoras en la apariencia o en la eficiencia
                              // a la hora de dibujar
             g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
-            //Dependiendo del valor de la propiedad marca dibujamos una
+            
 
             //Degradado
             if (degradado)
@@ -131,19 +156,31 @@ namespace DI_Tema5_Ejer2
                     new PointF(this.Width, this.Height),
                     colorInicio,
                     colorFinal);
+
+                g.FillRectangle(gradientColor, new RectangleF(
+                    0,0,
+                    this.Width, this.Height)); //¿Cómo poner más grande el recuadro??
+                //https://docs.microsoft.com/es-es/dotnet/api/system.drawing.drawing2d.lineargradientbrush?view=dotnet-plat-ext-5.0
             }
 
+            //Dependiendo del valor de la propiedad marca dibujamos una
             //Cruz o un Círculo
             switch (Marca)
             {
                 case eMarca.Circulo:
-                    grosor = 20;
+                    grosor = 5;
                     g.DrawEllipse(new Pen(Color.Green, grosor), grosor, grosor,
 
                     this.Font.Height, this.Font.Height);
 
                     offsetX = this.Font.Height + grosor;
                     offsetY = grosor;
+
+                    x = grosor;
+                    y = grosor;
+                    width = this.Font.Height;
+                    height = this.Font.Height;
+
                     break;
                 case eMarca.Cruz:
                     grosor = 5;
@@ -154,11 +191,32 @@ namespace DI_Tema5_Ejer2
                     this.Font.Height);
                     offsetX = this.Font.Height + grosor;
                     offsetY = grosor / 2;
+
+                    x = grosor;
+                    y = grosor;
+                    width = this.Font.Height;
+                    height = this.Font.Height;
                     //Es recomendable liberar recursos de dibujo pues se
 
                     //pueden realizar muchos y cogen memoria
 
                     lapiz.Dispose();
+                    break;
+                case eMarca.Imagen:
+                    if (imagenMarca != null)
+                    {
+                        grosor = 10;
+                        int altoImagen = this.Font.Height;
+                        int anchoImagen = (imagenMarca.Width * this.Font.Height) / imagenMarca.Height;
+                        g.DrawImage(imagenMarca, grosor, grosor, anchoImagen, altoImagen);//x,y,ancho,alto
+                        offsetX = anchoImagen + grosor;
+                        offsetY = grosor;
+
+                        x = grosor;
+                        y = grosor;
+                        width = anchoImagen;
+                        height = altoImagen;
+                    }
                     break;
             }
 
@@ -166,20 +224,36 @@ namespace DI_Tema5_Ejer2
             SolidBrush b = new SolidBrush(this.ForeColor);
             g.DrawString(this.Text, this.Font, b, offsetX + grosor, offsetY);
             Size tam = g.MeasureString(this.Text, this.Font).ToSize();
-            this.Size = new Size(tam.Width + offsetX + grosor, tam.Height + offsetY* 2);
-
-            
-
-           
-            
-            
+            this.Size = new Size(tam.Width + offsetX + grosor, tam.Height + offsetY * 2);
+       
             b.Dispose();
         }
 
+        
         protected override void OnTextChanged(EventArgs e)
         {
             base.OnTextChanged(e);
             this.Refresh(); //cada vez que cambiamos el texto refrescamos los gráficos
         }
+
+        protected override void OnMouseClick(MouseEventArgs e)
+        {
+            base.OnMouseClick(e);
+            if(e.X >= this.x && e.X <= this.x+width && e.Y >= this.y && e.Y <= height)
+            {
+                ClickEnMarca?.Invoke(this,EventArgs.Empty);
+            }
+        }
+
+        /**
+          _      __    _     ____   __    ___       ____  _      ____  _     _____  ___  
+         | |    / /\  | |\ |  / /  / /\  | |_)     | |_  \ \  / | |_  | |\ |  | |  / / \ 
+         |_|__ /_/--\ |_| \| /_/_ /_/--\ |_| \     |_|__  \_\/  |_|__ |_| \|  |_|  \_\_/
+        */
+
+        [Category("Click en marca")]
+        [Description("Se lanza cuando se hace click en marca")]
+        public event System.EventHandler ClickEnMarca;
+
     }
 }

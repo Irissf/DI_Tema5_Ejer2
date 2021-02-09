@@ -16,5 +16,10 @@ namespace PruebaComponente
         {
             InitializeComponent();
         }
+
+        private void etiquetaAviso2_ClickEnMarca(object sender, EventArgs e)
+        {
+            MessageBox.Show("Componente");
+        }
     }
 }
