@@ -222,7 +222,7 @@ namespace DI_Tema5_Ejer2
 
             //Finalmente pintamos el Texto; desplazado si fuera necesario
             SolidBrush b = new SolidBrush(this.ForeColor);
-            g.DrawString(this.Text, this.Font, b, offsetX + grosor, offsetY);
+            g.DrawString(this.Text, this.Font, b, offsetX + grosor, offsetY); //si pongo por dos la imagen, debo recolocar donde colocamos el texto con referencia a la imagen
             Size tam = g.MeasureString(this.Text, this.Font).ToSize();
             this.Size = new Size(tam.Width + offsetX + grosor, tam.Height + offsetY * 2);
        

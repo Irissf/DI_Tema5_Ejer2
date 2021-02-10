@@ -36,18 +36,19 @@ namespace PruebaComponente
             // 
             // etiquetaAviso2
             // 
-            this.etiquetaAviso2.ColorFinal = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
-            this.etiquetaAviso2.ColorInicio = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.etiquetaAviso2.ColorFinal = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.etiquetaAviso2.ColorInicio = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.etiquetaAviso2.Degradado = true;
             this.etiquetaAviso2.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.etiquetaAviso2.ImagenMarca = ((System.Drawing.Image)(resources.GetObject("etiquetaAviso2.ImagenMarca")));
-            this.etiquetaAviso2.Location = new System.Drawing.Point(12, 30);
-            this.etiquetaAviso2.Marca = DI_Tema5_Ejer2.eMarca.Cruz;
+            this.etiquetaAviso2.ImagenMarca = global::PruebaComponente.Properties.Resources._6afd8d7997fb5d72259a59cb255c6f1c;
+            this.etiquetaAviso2.Location = new System.Drawing.Point(46, 224);
+            this.etiquetaAviso2.Marca = DI_Tema5_Ejer2.eMarca.Imagen;
             this.etiquetaAviso2.Margin = new System.Windows.Forms.Padding(2);
             this.etiquetaAviso2.Name = "etiquetaAviso2";
-            this.etiquetaAviso2.Size = new System.Drawing.Size(230, 37);
+            this.etiquetaAviso2.Size = new System.Drawing.Size(350, 53);
             this.etiquetaAviso2.TabIndex = 1;
-            this.etiquetaAviso2.Text = "etiquetaAviso2";
+            this.etiquetaAviso2.TabStop = false;
+            this.etiquetaAviso2.Text = "Prueba de Componente";
             this.etiquetaAviso2.ClickEnMarca += new System.EventHandler(this.etiquetaAviso2_ClickEnMarca);
             // 
             // etiquetaAviso1
@@ -68,11 +69,11 @@ namespace PruebaComponente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(5F, 9F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(357, 221);
+            this.ClientSize = new System.Drawing.Size(560, 385);
             this.Controls.Add(this.etiquetaAviso2);
             this.Controls.Add(this.etiquetaAviso1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Form1";
             this.Text = "hola";
             this.ResumeLayout(false);
